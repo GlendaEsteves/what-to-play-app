@@ -11,9 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'What To Play',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
+      theme:
+          ThemeData(primarySwatch: Colors.orange, brightness: Brightness.dark),
       home: const MyHomePage(title: 'What To Play?'),
     );
   }
