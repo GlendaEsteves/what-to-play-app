@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:what_to_play/screen/genres.dart';
 import './auth/secrets.dart';
 import './model/genres.dart';
 import 'package:http/http.dart' as http;
@@ -50,10 +51,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ElevatedButton(
             onPressed: () async {
-              var lista = await futureGenres;
-              print(lista.results.toString());
+              var list = await futureGenres;
+              List listNamesGenres = list.results;
+              print(list.results);
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          GenresScreen(listGenres: listNamesGenres)));
             },
-            child: const Text('Teste')),
+            child: const Text('Try a game!')),
       ),
     );
   }
@@ -69,6 +76,6 @@ Future<Genres> fetchGenres() async {
   if (response.statusCode == 200) {
     return Genres.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load');
   }
 }
