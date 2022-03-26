@@ -8,6 +8,8 @@
 .buildlog/
 .history
 .svn/
+windows/
+/lib/auth/secrets.dart
 
 # IntelliJ related
 *.iml
