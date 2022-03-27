@@ -18,6 +18,7 @@ class GamesScreen extends StatefulWidget {
 class _GamesScreenState extends State<GamesScreen> {
   late Future<Games> futureGames;
   var nameGenre;
+  List listGames = [];
 
   @override
   initState() {
@@ -35,7 +36,8 @@ class _GamesScreenState extends State<GamesScreen> {
           future: futureGames,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text((snapshot.data!.results).toString());
+              listGames = snapshot.data!.results;
+              return Text(randomGame(listGames));
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
@@ -61,7 +63,7 @@ class _GamesScreenState extends State<GamesScreen> {
     }
   }
 
-  String randomGame(String listGames) {
+  String randomGame(List listGames) {
     final random = Random();
     var choosenGame = listGames[random.nextInt(listGames.length)];
     return choosenGame;
