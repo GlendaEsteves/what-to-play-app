@@ -53,7 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () async {
               var list = await futureGenres;
               List listNamesGenres = list.results;
-              print(list.results);
               await Navigator.push(
                   context,
                   MaterialPageRoute(

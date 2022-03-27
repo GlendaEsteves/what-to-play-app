@@ -1,5 +1,12 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:what_to_play/model/buttons.dart';
+import 'package:what_to_play/screen/games.dart';
+
+import '../auth/secrets.dart';
+import '../model/games.dart';
 
 class GenresScreen extends StatefulWidget {
   GenresScreen({required this.listGenres, Key? key}) : super(key: key);
@@ -14,6 +21,7 @@ class _GenresScreenState extends State<GenresScreen> {
   @override
   Widget build(BuildContext context) {
     var listGenres = widget.listGenres;
+    var nameGenre;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -28,7 +36,14 @@ class _GenresScreenState extends State<GenresScreen> {
                 ...listGenres
                     .asMap()
                     .entries
-                    .map((e) => Buttons(e.value.toString(), () async {}))
+                    .map((e) => Buttons(e.value.toString(), () async {
+                          nameGenre = e.value.toString();
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      GamesScreen(genre: nameGenre)));
+                        }))
               ],
             ),
           )
