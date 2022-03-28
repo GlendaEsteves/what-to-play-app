@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../auth/secrets.dart';
 import '../model/games.dart';
+import '../model/name_games.dart';
 
 class GamesScreen extends StatefulWidget {
   GamesScreen({required this.genre, Key? key}) : super(key: key);
@@ -32,23 +33,40 @@ class _GamesScreenState extends State<GamesScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: FutureBuilder<Games>(
-          future: futureGames,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              listGames = snapshot.data!.results;
-              return Text(randomGame(listGames));
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-            return const CircularProgressIndicator();
-          },
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(children: [
+            const Text(
+              'What About?',
+              style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            FutureBuilder<Games>(
+              future: futureGames,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    randomGame(snapshot.data!.results).toString(),
+                    style: TextStyle(fontSize: 36),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ]),
         ),
       ),
     );
   }
 
   Future<Games> fetchGames() async {
+    if (nameGenre == 'rpg') {
+      nameGenre = 'role-playing-games-rpg';
+    }
     final url =
         'https://api.rawg.io/api/games?key=$apiKey&genres=$nameGenre&page_size=10&ordering=-added';
     final response = await http.get(Uri.parse(url), headers: <String, String>{
@@ -63,7 +81,7 @@ class _GamesScreenState extends State<GamesScreen> {
     }
   }
 
-  String randomGame(List listGames) {
+  NameGames randomGame(List listGames) {
     final random = Random();
     var choosenGame = listGames[random.nextInt(listGames.length)];
     return choosenGame;

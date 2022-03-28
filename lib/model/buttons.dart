@@ -10,10 +10,16 @@ class Buttons extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: (whenSelected),
-        child: Text(text),
-        style: ElevatedButton.styleFrom(
-            primary: const Color.fromRGBO(255, 152, 0, 100),
-            padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-            textStyle: const TextStyle(color: Colors.white)));
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: const BorderSide(color: Colors.orange),
+            ))));
   }
 }

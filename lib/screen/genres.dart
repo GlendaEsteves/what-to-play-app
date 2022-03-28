@@ -25,29 +25,35 @@ class _GenresScreenState extends State<GenresScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-          child: Column(
-        children: [
-          const Text('Choose a genre:'),
-          Expanded(
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: [
-                ...listGenres
-                    .asMap()
-                    .entries
-                    .map((e) => Buttons(e.value.toString(), () async {
-                          nameGenre = e.value.toString();
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      GamesScreen(genre: nameGenre)));
-                        }))
-              ],
+          child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            const Text(
+              'Choose a genre:',
+              style: TextStyle(fontSize: 20),
             ),
-          )
-        ],
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                children: [
+                  ...listGenres
+                      .asMap()
+                      .entries
+                      .map((e) => Buttons(e.value.toString(), () async {
+                            nameGenre = e.value.toString();
+                            await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        GamesScreen(genre: nameGenre)));
+                          }))
+                ],
+              ),
+            )
+          ],
+        ),
       )),
     );
   }

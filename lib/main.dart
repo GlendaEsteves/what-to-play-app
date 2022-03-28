@@ -59,7 +59,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context) =>
                           GenresScreen(listGenres: listNamesGenres)));
             },
-            child: const Text('Try a game!')),
+            child: const Text(
+              'Give me a suggestion!',
+              style: TextStyle(fontSize: 26, color: Colors.white),
+            ),
+            style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(const Size(200, 80)),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.orange),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: const BorderSide(color: Colors.orange),
+                )))),
       ),
     );
   }
